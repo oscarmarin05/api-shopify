@@ -10,6 +10,22 @@ const shopify = new Shopify({
     password: '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'
   });
 
+app.get("/", (req, res) => {
+    const  htmlResponse = `
+    <html>
+      <head>
+        <title>NodeJs</title>
+      </head>
+      <body>
+        <h1>
+          Proyecto api
+        </h1>
+      </body>
+    </html>
+    `;
+    res.send(htmlResponse);
+})
+
 // Define un endpoint
 app.get('/get', async (req, res) => {
   try {
@@ -22,6 +38,12 @@ app.get('/get', async (req, res) => {
     console.log(err);
   }
 });
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://cafequindiocol.myshopify.com');
+    // Otros encabezados y opciones aquí si es necesario
+    next();
+  });
 
 // Inicia el servidor
 app.listen(PORT, () => {
